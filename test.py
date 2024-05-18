@@ -1,6 +1,5 @@
 import random
 
-password = 'FDSewr$/%$%2309'
-password_list = list(password)
-print(random.shuffle(list(password_list)))
-print(''.join(password_list))
+password = list('FDSewr$/%$%2309')
+random.shuffle(password)
+print(''.join(password))

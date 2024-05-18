@@ -29,17 +29,20 @@ def getListOfIndex(nb_other_characters, index_list):
 
   return list_of_index
 
-def generatePassword(nb_characters, digit_index_list, special_characters_index_list, i, password):
-  password = ''
-  for i in range(nb_characters):
-    if i in digit_index_list: password += random.choice(string.digits)
-    elif i in special_characters_index_list: password += random.choice(string.punctuation)
-    else: password += random.choice(string.ascii_letters)
+def showPassword(password):
+  print('\r\n')
+  print('---------------------------------\r\n')
+  print(f"Your password: {password}")
 
-  if nb_characters > len(password): generatePassword(nb_characters, digit_index_list, special_characters_index_list, ++i, password)
-  else: 
-    return password
-  
+def generatePassword(nb_characters, digit_index_list, special_characters_index_list, i, password):
+  if i in digit_index_list: password += random.choice(string.digits)
+  elif i in special_characters_index_list: password += random.choice(string.punctuation)
+  else: password += random.choice(string.ascii_letters)
+
+  if nb_characters >= len(password):
+    i += 1
+    generatePassword(nb_characters, digit_index_list, special_characters_index_list, i, password)
+  else: showPassword(password)
 
 def main():
   print('Générer son mot de passe complexe\r\n')
@@ -61,8 +64,6 @@ def main():
   if nb_special_caracters > 0:
     special_characters_index_list = getListOfIndex(nb_special_caracters, index_list)
 
-  print('\r\n')
-  print('---------------------------------\r\n')
-  print(f"Your password: {generatePassword(nb_characters, digit_index_list, special_characters_index_list, 0, '')}")
+  generatePassword(nb_characters, digit_index_list, special_characters_index_list, 0, '')
 
 main()
